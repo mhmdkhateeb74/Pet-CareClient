@@ -1,0 +1,10 @@
+.navlink {
+    transition: 0.3s;
+    display: inline-block;
+    color:aliceblue
+}
+
+.navlink:hover {
+    color: #473c57;
+    transform: scale(1.1);
+}

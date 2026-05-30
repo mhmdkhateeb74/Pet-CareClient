@@ -34,7 +34,7 @@ const styles = {
         justifyContent: "center",
         minHeight: "calc(100vh - 100px)",
         width: "100%",
-        backgroundColor: "#F6DCCF"
+        backgroundColor: "#F3F0F9"
     },
 
     TextDiv:
@@ -50,7 +50,7 @@ const styles = {
 
     Text:
     {
-        color: "#2447B8",
+        color: "#564BA5",
         fontSize: "100px",
         fontWeight: "1500",
         margin: 0,
@@ -75,7 +75,7 @@ const styles = {
 
     p:
     {
-        color: "#2447B8",
+        color: "#564BA5",
         fontSize: "30px",
         fontWeight: "50"
 
@@ -84,7 +84,7 @@ const styles = {
     button:
     {
         color: "white",
-        backgroundColor: "#2447B8",
+        backgroundColor: "#564BA5",
         width: "220px",
         height: "50px",
         fontSize: "16px",

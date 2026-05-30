@@ -2,7 +2,7 @@ import React from 'react';
 import {Outlet} from "react-router";
 import {navItems} from "../Routers/main_R";
 import { Link } from "react-router-dom";
-import icon from "../assets/Icon.png";
+import { FaPaw } from "react-icons/fa";
 import "../App.css";
 
 
@@ -13,13 +13,17 @@ function AppLayout(props) {
            
             <div style={styles.maindiv}>
                  <div style={styles.divicon}>
-                <img  style={styles.icon} src={icon} alt="Icon-PetCare" />
+                  <div style={styles.logo}>
+                   <FaPaw />
+                    <span>Pet Care</span>
+                 </div>
                 </div>
                 <nav style={styles.nav}>
                 {
                     navItems.map((item) => (
                     <Link 
                     style={styles.link}
+                    className="navlink"
                     key={item.id}
                     to={item.path}>
                     {item.name}
@@ -43,7 +47,7 @@ const styles = {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        backgroundColor: "ffe3bd",
+        backgroundColor: "#564BA5",
         height: "100px",
         width: "100%",
         padding: "0 20px",
@@ -68,21 +72,23 @@ const styles = {
         
     },
 
-    icon:
-    {
-        borderRadius: "50px",
-        width: "100px",
-        height: "100px",
-        alignItems:"flex-start",
-
-    },
+        logo: {
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            color: "white",
+            fontSize: "40px",
+            fontWeight: "bold"
+        },
+   
     link:
     {
-        color: "#6B7280",
-        fontSize: "18px",
+        fontSize: "25px",
         textDecoration: "none",
-        fontWeight: "500"
-    
+        fontWeight: "500",
+        paddingRight: "70px",
+        borderRight: "2px solid white",
+        gap: "40px"
     },
 
     
