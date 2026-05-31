@@ -1,9 +1,38 @@
 import React from 'react'
 import loginpic from "../../assets/loginpic.png"
 import { Link } from "react-router-dom";
+import { useLoginUser } from "./apiHook";
+import {useState} from "react";
 
-function login(props) {
+function Login(props) {
+
+    const {IsloginUser, loginUser} = useLoginUser();
+    const [formData, setFormData] = useState({
+        email:"",
+        password: '',
+    });
+
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevData => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        
+        console.log("clicked");
+        console.log(formData, "formData");
+        
+        loginUser(formData);
+    }
+
   return (
+
+   
+
     <>
     <div style={styles.maindiv}>
          <div style={styles.divpic}>
@@ -17,14 +46,22 @@ function login(props) {
 
                 <h1 style={styles.h1}>Login</h1>
                 <label style={styles.label}>Email</label>
-                <input style={styles.input} type="email" placeholder='Enter Email' />
+                <input name="email"
+                 onChange={handleChange}
+                 style={styles.input} 
+                 type="email" 
+                 placeholder='Enter Email' />
                 <label style={styles.label}>Password</label>
-                <input style={styles.input} type="password" placeholder='Enter Password' />
+                <input  name="password"
+                  onChange={handleChange} 
+                  style={styles.input} 
+                  type="password" 
+                  placeholder='Enter Password' />
                 
-                <button style={styles.button}>Login</button>
+                <button onClick={handleSubmit} style={styles.button}>Login</button>
                 <p style={{fontSize:"20px"}}>Dont have an account?  <Link 
                     style={{color:"#564BA5"}}
-                    to="Register">
+                    to="/Register">
                         Register
                     </Link> </p>
             </div>
@@ -38,7 +75,7 @@ function login(props) {
   )
 }
 
-export default login
+export default Login
 
 const styles = {
 

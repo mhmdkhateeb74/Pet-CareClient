@@ -4,6 +4,7 @@ import AppLayout from "../LayOut/AppLayout"
 import HomePage from "../_Features/HomePage/HomePage"
 import Infopage from "../_Features/InfoPage/Infopage"
 import Login from "../_Features/Login/login"
+import Register from "../_Features/Register/register"
 
 const router = createBrowserRouter([
     {
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
             {path:"/", element:<HomePage />,},
             {path:"/Infopage", element:<Infopage />,},
             {path:"/Login", element:<Login />,},
+            {path:"/Register", element:<Register />,},
             
            
         ]

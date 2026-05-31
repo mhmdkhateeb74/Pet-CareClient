@@ -1,5 +1,5 @@
 import React from 'react';
-import infopic from "../../assets/infopic.jpg";
+import infopic from "../../assets/infopic.png";
 
 function Infopage(props) {
 
