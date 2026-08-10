@@ -13,8 +13,6 @@ function useRegisterUser() {
             },
             onSuccess: (data)=>{
                 console.log(data);
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("user", JSON.stringify(data.user));
                 Navigate("/Login");
 
             },
