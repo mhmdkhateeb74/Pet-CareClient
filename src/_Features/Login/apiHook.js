@@ -15,7 +15,7 @@ function useLoginUser() {
                 console.log(data);
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("user", JSON.stringify(data.user));
-                Navigate("/");
+                Navigate("/User");
 
             },
         }

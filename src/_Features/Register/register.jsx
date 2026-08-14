@@ -183,7 +183,7 @@ const styles = {
 
     input: {
         width: "100%",
-        height: "50px",
+        height: "200px",
         border: "1px solid #D9D3EE",
         borderRadius: "12px",
         padding: "0 15px",
@@ -195,7 +195,7 @@ const styles = {
 
     button: {
         width: "80%",
-        height: "100px",
+        height: "200px",
         border: "1px solid #D9D3EE",
         borderRadius: "12px",
         padding: "0 15px",

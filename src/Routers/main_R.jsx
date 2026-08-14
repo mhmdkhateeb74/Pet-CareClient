@@ -5,6 +5,9 @@ import HomePage from "../_Features/HomePage/HomePage"
 import Infopage from "../_Features/InfoPage/Infopage"
 import Login from "../_Features/Login/login"
 import Register from "../_Features/Register/register"
+import UserPage from "../_Features/UserPage/UserPage";
+import UserLayout from "../LayOut/UserLayout"
+import MyPets from "../_Features/UserPage/MyPets/MyPets"
 
 const router = createBrowserRouter([
     {
@@ -14,10 +17,26 @@ const router = createBrowserRouter([
             {path:"/Infopage", element:<Infopage />,},
             {path:"/Login", element:<Login />,},
             {path:"/Register", element:<Register />,},
+           
             
            
         ]
     },
+    {
+        path: "/User",
+        element: <UserLayout />,
+        children: [
+            {
+                index: true,
+                element: <UserPage />
+            },
+            {
+                path: "MyPets",
+                element: <MyPets />
+            }
+        ]
+    }
+
 ]);
 
 export const navItems = [
@@ -25,6 +44,15 @@ export const navItems = [
     {id:2 ,path:"/Infopage" ,name:"About us" },
     {id:3 ,path:"/Login" ,name:"Login" },
     {id:4 ,path:"/Register" ,name:"Register" },
+    
+]
+
+export const navUser = [
+    {id:1 ,path:"/" ,name:"HomePage" },
+    {id:2 ,path:"/Infopage" ,name:"About us" },
+    {id:3 ,path:"/User" ,name:"ProFile" },
+    {id:4 ,path:"/User/MyPets" ,name:"MyPets" },
+   ,
     
 ]
 
