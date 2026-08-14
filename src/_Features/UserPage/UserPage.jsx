@@ -30,7 +30,7 @@ function UserPage() {
              justifyContent: "center",
            }}>
           <h4>Welcome back,</h4>
-          <h2>{user}</h2>
+          <h2>{user?.name}</h2>
           <p>We're happy to see you again!</p>
           </div>
 
