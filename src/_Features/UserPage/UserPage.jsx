@@ -1,5 +1,6 @@
 import React from "react";
 import protpet from "../../assets/propet.png";
+import helpPets from "../../assets/helpPets.png";
 import {
   useGetAllAnimals,
   useGetAllVisiters,
@@ -211,31 +212,32 @@ function UserPage() {
           </div>
 
           <div style={style.overview}>
-                      <div
-                style={{
-                  ...style.overviewIcon,
-                  backgroundColor: "#E85D75"
-                }}
-              >
-                📋
-              </div>
-              
-              <div style={style.overviewInfo}>
-              
-                <h2 style={style.overviewCount}>
-                  {CountAllRecords()}
-                </h2>
-              
-                <p style={style.overviewTitle}>
-                  All Records
-                </p>
-              
-                <p style={style.overviewText}>
-                  View all history
-                </p>
-              
-              </div>
-              
+
+            <div
+              style={{
+                ...style.overviewIcon,
+                backgroundColor: "#E85D75"
+              }}
+            >
+              📋
+            </div>
+
+            <div style={style.overviewInfo}>
+
+              <h2 style={style.overviewCount}>
+                {CountAllRecords()}
+              </h2>
+
+              <p style={style.overviewTitle}>
+                All Records
+              </p>
+
+              <p style={style.overviewText}>
+                View all history
+              </p>
+
+            </div>
+
           </div>
 
         </div>
@@ -245,17 +247,73 @@ function UserPage() {
       <div style={style.thirdDiv}>
 
         <div style={style.appointmentsSection}>
+
           <h3>Upcoming Appointments</h3>
 
           <div style={style.appointmentsBox}>
           </div>
+
         </div>
 
         <div style={style.tipsSection}>
+
           <h3>Pet Tips</h3>
 
           <div style={style.tipsBox}>
+
+            <div style={style.tipIcon}>
+              ✓
+            </div>
+
+            <div style={style.tipInfo}>
+
+              <h3 style={style.tipTitle}>
+                Keep your pets healthy
+              </h3>
+
+              <p style={style.tipText}>
+                Regular checkups and vaccinations
+                <br />
+                are the key to a happy pet.
+              </p>
+
+            </div>
+
           </div>
+
+          <div style={style.helpBox}>
+
+            <div style={style.helpInfo}>
+
+              <h3 style={style.helpTitle}>
+                Need Help?
+              </h3>
+
+              <p style={style.helpText}>
+                If you have any questions or need
+                <br />
+                assistance, we're here to help.
+              </p>
+
+              <button  onClick={() => {
+                window.open(
+                  "https://mail.google.com/mail/?view=cm&fs=1&to=mhmdkhateeb92@gmail.com&su=Pet%20Care%20Support",
+                  "_blank"
+                );
+                 }} style={style.contactButton}>
+                🎧 Contact Us
+              </button>
+
+            </div>
+
+            <img
+              src={helpPets}
+              alt="Dog and cat"
+              style={style.helpImage}
+            />
+
+          </div>
+
         </div>
 
       </div>
@@ -395,9 +453,100 @@ const style = {
   },
 
   tipsBox: {
-    height: "80%",
-    backgroundColor: "white",
-    borderRadius: "15px"
+    width: "100%",
+    height: "140px",
+    backgroundColor: "#F3FAF3",
+    borderRadius: "20px",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    gap: "25px",
+    padding: "25px 35px",
+    boxSizing: "border-box"
+  },
+
+  tipIcon: {
+    width: "55px",
+    height: "55px",
+    minWidth: "55px",
+    borderRadius: "50%",
+    backgroundColor: "#DDF3DF",
+    color: "#42B95C",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "28px",
+    fontWeight: "bold"
+  },
+
+  tipInfo: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "center"
+  },
+
+  tipTitle: {
+    margin: "0 0 10px 0",
+    color: "#16752C",
+    fontSize: "17px",
+    fontWeight: "bold"
+  },
+
+  tipText: {
+    margin: "0",
+    color: "#444",
+    fontSize: "15px",
+    lineHeight: "1.6"
+  },
+
+  helpBox: {
+    width: "100%",
+    height: "170px",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "15px 25px",
+    boxSizing: "border-box"
+  },
+
+  helpInfo: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "center"
+  },
+
+  helpTitle: {
+    margin: "0 0 12px 0",
+    fontSize: "18px",
+    fontWeight: "bold"
+  },
+
+  helpText: {
+    margin: "0 0 18px 0",
+    fontSize: "14px",
+    color: "#777",
+    lineHeight: "1.6"
+  },
+
+  contactButton: {
+    backgroundColor: "#5B4DB7",
+    color: "white",
+    border: "none",
+    borderRadius: "25px",
+    padding: "10px 22px",
+    fontSize: "14px",
+    fontWeight: "bold",
+    cursor: "pointer"
+  },
+
+  helpImage: {
+    width: "180px",
+    height: "150px",
+    objectFit: "contain"
   }
 
 };
