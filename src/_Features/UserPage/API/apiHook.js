@@ -1,4 +1,4 @@
-import { GetAllAnimals,GetAllVisiters } from "./apiUser";
+import { GetAllAnimals,GetAllVisiters,GetAllVaccines } from "./apiUser";
 import { useQuery } from "@tanstack/react-query";
 
 function useGetAllAnimals() {
@@ -27,4 +27,17 @@ function useGetAllVisiters() {
     return query;
 }
 
-export {useGetAllAnimals,useGetAllVisiters};
+function useGetAllVaccines() {
+    const query = useQuery({
+        queryKey: ['AllVaccines'],
+        queryFn: () => GetAllVaccines(),
+        staleTime: 5 * 60 * 1000, 
+        gcTime: 5 * 60 * 1000, 
+        retry: (failureCount, error) => {
+            return failureCount < 3;
+        }
+    });
+    return query;
+}
+
+export {useGetAllAnimals,useGetAllVisiters,useGetAllVaccines};
