@@ -19,60 +19,90 @@ function UserPage() {
   const Visiters = VisitersData?.list || [];
   const Vaccines = VaccinesData?.list || [];
 
+
   function CountUseranimals() {
+
     let count = 0;
 
     Animals.forEach((animal) => {
+
       if (animal.owner_id === user.user_id) {
         count++;
       }
+
     });
 
     return count;
   }
 
+
   function CountUserVisits() {
+
     let count = 0;
 
     Visiters.forEach((visit) => {
+
+      const visitDate = new Date(visit.visit_date);
+      const today = new Date();
+
+      visitDate.setHours(0, 0, 0, 0);
+      today.setHours(0, 0, 0, 0);
+
       Animals.forEach((animal) => {
+
         if (
           visit.animal_id === animal.animal_id &&
-          animal.owner_id === user.user_id
+          animal.owner_id === user.user_id &&
+          visitDate >= today
         ) {
           count++;
         }
+
       });
+
     });
 
     return count;
   }
 
+
   function CountVaccines() {
+
     let count = 0;
 
     Animals.forEach((animal) => {
+
       Vaccines.forEach((vaccine) => {
+
         if (
           animal.owner_id === user.user_id &&
           animal.animal_id === vaccine.animal_id
         ) {
           count++;
         }
+
       });
+
     });
 
     return count;
   }
 
+
   function CountAllRecords() {
     return CountUserVisits() + CountVaccines();
   }
 
+
   return (
+
     <div style={style.page}>
 
+
+      {/* TOP SECTION */}
+
       <div style={style.firstDiv}>
+
 
         <div style={style.profito}>
 
@@ -86,6 +116,7 @@ function UserPage() {
             }}
           />
 
+
           <div
             style={{
               width: "70%",
@@ -97,6 +128,7 @@ function UserPage() {
               justifyContent: "center"
             }}
           >
+
             <h4>Welcome back,</h4>
 
             <h2>
@@ -105,6 +137,7 @@ function UserPage() {
             </h2>
 
             <p>We're happy to see you again!</p>
+
           </div>
 
         </div>
@@ -127,14 +160,21 @@ function UserPage() {
 
         </div>
 
+
       </div>
 
+
+      {/* QUICK OVERVIEW */}
 
       <div style={style.secondDiv}>
 
         <h3>Quick OverView</h3>
 
+
         <div style={style.OverViewBoxs}>
+
+
+          {/* PETS */}
 
           <div style={style.overview}>
 
@@ -146,6 +186,7 @@ function UserPage() {
             >
               🐾
             </div>
+
 
             <div style={style.overviewInfo}>
 
@@ -166,6 +207,8 @@ function UserPage() {
           </div>
 
 
+          {/* UPCOMING VISITS */}
+
           <div style={style.overview}>
 
             <div
@@ -176,6 +219,7 @@ function UserPage() {
             >
               📅
             </div>
+
 
             <div style={style.overviewInfo}>
 
@@ -196,6 +240,8 @@ function UserPage() {
           </div>
 
 
+          {/* VACCINES */}
+
           <div style={style.overview}>
 
             <div
@@ -206,6 +252,7 @@ function UserPage() {
             >
               💉
             </div>
+
 
             <div style={style.overviewInfo}>
 
@@ -226,6 +273,8 @@ function UserPage() {
           </div>
 
 
+          {/* ALL RECORDS */}
+
           <div style={style.overview}>
 
             <div
@@ -236,6 +285,7 @@ function UserPage() {
             >
               📋
             </div>
+
 
             <div style={style.overviewInfo}>
 
@@ -255,94 +305,134 @@ function UserPage() {
 
           </div>
 
+
         </div>
 
       </div>
 
 
+      {/* BOTTOM SECTION */}
+
       <div style={style.thirdDiv}>
+
+
+        {/* UPCOMING APPOINTMENTS */}
 
         <div style={style.appointmentsSection}>
 
           <h3>Upcoming Appointments</h3>
 
+
           <div style={style.appointmentsBox}>
 
-            {Visiters.map((visit) => {
+            {Visiters
 
-              const animal = Animals.find(
-                (animal) =>
-                  animal.animal_id === visit.animal_id &&
-                  animal.owner_id === user.user_id
-              );
+              .filter((visit) => {
 
-              if (!animal) {
-                return null;
-              }
+                const visitDate = new Date(visit.visit_date);
+                const today = new Date();
 
-              return (
-                <div
-                  style={style.appointment}
-                  key={visit.visit_id}
-                >
+                visitDate.setHours(0, 0, 0, 0);
+                today.setHours(0, 0, 0, 0);
 
-                  <img
-                    src={animal.photo_url}
-                    alt={animal.name}
-                    style={style.appointmentImage}
-                  />
+                return visitDate >= today;
 
-                  <div style={style.appointmentInfo}>
+              })
 
-                    <h3 style={style.appointmentName}>
-                      {animal.name}
-                    </h3>
+              .map((visit) => {
 
-                    <p style={style.appointmentType}>
-                      {visit.diagnosis}
-                    </p>
+
+                const animal = Animals.find(
+                  (animal) =>
+                    animal.animal_id === visit.animal_id &&
+                    animal.owner_id === user.user_id
+                );
+
+
+                if (!animal) {
+                  return null;
+                }
+
+
+                return (
+
+                  <div
+                    style={style.appointment}
+                    key={visit.visit_id}
+                  >
+
+
+                    <img
+                      src={animal.photo_url}
+                      alt={animal.name}
+                      style={style.appointmentImage}
+                    />
+
+
+                    <div style={style.appointmentInfo}>
+
+                      <h3 style={style.appointmentName}>
+                        {animal.name}
+                      </h3>
+
+                      <p style={style.appointmentType}>
+                        {visit.diagnosis}
+                      </p>
+
+                    </div>
+
+
+                    <div style={style.appointmentDate}>
+
+                      <p>
+
+                        {new Date(
+                          visit.visit_date
+                        ).toLocaleDateString(
+                          "en-US",
+                          {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric"
+                          }
+                        )}
+
+                      </p>
+
+                    </div>
+
+
+                    <div style={style.calendarIcon}>
+                      📅
+                    </div>
+
 
                   </div>
 
+                );
 
-                  <div style={style.appointmentDate}>
-
-                    <p>
-                      {new Date(visit.visit_date).toLocaleDateString(
-                        "en-US",
-                        {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric"
-                        }
-                      )}
-                    </p>
-
-                  </div>
-
-
-                  <div style={style.calendarIcon}>
-                    📅
-                  </div>
-
-                </div>
-              );
-            })}
+              })}
 
           </div>
 
         </div>
 
 
+        {/* RIGHT SIDE */}
+
         <div style={style.tipsSection}>
+
 
           <h3>Pet Tips</h3>
 
+
           <div style={style.tipsBox}>
+
 
             <div style={style.tipIcon}>
               ✓
             </div>
+
 
             <div style={style.tipInfo}>
 
@@ -358,10 +448,14 @@ function UserPage() {
 
             </div>
 
+
           </div>
 
 
+          {/* HELP */}
+
           <div style={style.helpBox}>
+
 
             <div style={style.helpInfo}>
 
@@ -369,25 +463,36 @@ function UserPage() {
                 Need Help?
               </h3>
 
+
               <p style={style.helpText}>
                 If you have any questions or need
                 <br />
                 assistance, we're here to help.
               </p>
 
+
               <button
+
                 onClick={() => {
+
                   window.open(
                     "https://mail.google.com/mail/?view=cm&fs=1&to=mhmdkhateeb92@gmail.com&su=Pet%20Care%20Support",
                     "_blank"
                   );
+
                 }}
+
                 style={style.contactButton}
+
               >
+
                 🎧 Contact Us
+
               </button>
 
+
             </div>
+
 
             <img
               src={helpPets}
@@ -395,48 +500,66 @@ function UserPage() {
               style={style.helpImage}
             />
 
+
           </div>
+
 
         </div>
 
+
       </div>
 
+
     </div>
+
   );
+
 }
 
+
 export default UserPage;
+
 
 
 const style = {
 
   page: {
+
     minHeight: "100vh",
     backgroundColor: "#F3EEF9",
     padding: "30px",
     maxWidth: "1400px",
     margin: "0 auto",
     boxSizing: "border-box"
+
   },
 
+
   firstDiv: {
+
     width: "100%",
     height: "250px",
     display: "flex",
     alignItems: "center",
     gap: "20px"
+
   },
 
+
   profito: {
+
     height: "100%",
     width: "35%",
     backgroundColor: "white",
     borderRadius: "15px",
     display: "flex",
     alignItems: "center"
+
   },
 
+
   profitopet: {
+
     height: "100%",
     width: "65%",
     padding: "10px",
@@ -446,21 +569,30 @@ const style = {
     backgroundSize: "100% 100%",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat"
+
   },
+
 
   secondDiv: {
+
     width: "100%",
     height: "160px"
+
   },
 
+
   OverViewBoxs: {
+
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     gap: "20px"
+
   },
 
+
   overview: {
+
     flex: 1,
     height: "120px",
     backgroundColor: "white",
@@ -472,9 +604,12 @@ const style = {
     gap: "18px",
     padding: "20px",
     boxSizing: "border-box"
+
   },
 
+
   overviewIcon: {
+
     width: "60px",
     height: "60px",
     minWidth: "60px",
@@ -483,33 +618,48 @@ const style = {
     alignItems: "center",
     justifyContent: "center",
     fontSize: "30px"
+
   },
 
+
   overviewInfo: {
+
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "flex-start"
+
   },
+
 
   overviewCount: {
+
     margin: "0",
     fontSize: "28px"
+
   },
 
+
   overviewTitle: {
+
     margin: "2px 0",
     fontSize: "16px",
     fontWeight: "bold"
+
   },
 
+
   overviewText: {
+
     margin: "0",
     fontSize: "14px",
     color: "#777"
+
   },
 
+
   thirdDiv: {
+
     width: "100%",
     height: "350px",
     display: "flex",
@@ -517,22 +667,31 @@ const style = {
     alignItems: "flex-start",
     gap: "40px",
     marginTop: "20px"
+
   },
+
 
   appointmentsSection: {
+
     width: "60%",
     height: "100%"
+
   },
 
+
   appointmentsBox: {
+
     width: "100%",
     height: "280px",
     backgroundColor: "white",
     borderRadius: "15px",
     overflowY: "auto"
+
   },
 
+
   appointment: {
+
     width: "100%",
     height: "90px",
     display: "flex",
@@ -541,41 +700,59 @@ const style = {
     padding: "15px 25px",
     boxSizing: "border-box",
     borderBottom: "1px solid #eee"
+
   },
 
+
   appointmentImage: {
+
     width: "55px",
     height: "55px",
     minWidth: "55px",
     borderRadius: "50%",
     objectFit: "cover"
+
   },
 
+
   appointmentInfo: {
+
     marginLeft: "20px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center"
+
   },
+
 
   appointmentName: {
+
     margin: "0",
     fontSize: "17px"
+
   },
 
+
   appointmentType: {
+
     margin: "6px 0 0 0",
     color: "#777",
     fontSize: "14px"
+
   },
 
+
   appointmentDate: {
+
     marginLeft: "auto",
     textAlign: "right",
     fontSize: "14px"
+
   },
 
+
   calendarIcon: {
+
     width: "45px",
     height: "45px",
     minWidth: "45px",
@@ -586,14 +763,20 @@ const style = {
     alignItems: "center",
     justifyContent: "center",
     fontSize: "20px"
+
   },
+
 
   tipsSection: {
+
     flex: 1,
     height: "100%"
+
   },
 
+
   tipsBox: {
+
     width: "100%",
     height: "140px",
     backgroundColor: "#F3FAF3",
@@ -605,9 +788,12 @@ const style = {
     gap: "25px",
     padding: "25px 35px",
     boxSizing: "border-box"
+
   },
 
+
   tipIcon: {
+
     width: "55px",
     height: "55px",
     minWidth: "55px",
@@ -619,30 +805,42 @@ const style = {
     justifyContent: "center",
     fontSize: "28px",
     fontWeight: "bold"
+
   },
 
+
   tipInfo: {
+
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "center"
+
   },
 
+
   tipTitle: {
+
     margin: "0 0 10px 0",
     color: "#16752C",
     fontSize: "17px",
     fontWeight: "bold"
+
   },
 
+
   tipText: {
+
     margin: "0",
     color: "#444",
     fontSize: "15px",
     lineHeight: "1.6"
+
   },
 
+
   helpBox: {
+
     width: "100%",
     height: "170px",
     display: "flex",
@@ -651,29 +849,41 @@ const style = {
     justifyContent: "space-between",
     padding: "15px 25px",
     boxSizing: "border-box"
+
   },
 
+
   helpInfo: {
+
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "center"
+
   },
 
+
   helpTitle: {
+
     margin: "0 0 12px 0",
     fontSize: "18px",
     fontWeight: "bold"
+
   },
 
+
   helpText: {
+
     margin: "0 0 18px 0",
     fontSize: "14px",
     color: "#777",
     lineHeight: "1.6"
+
   },
 
+
   contactButton: {
+
     backgroundColor: "#5B4DB7",
     color: "white",
     border: "none",
@@ -682,12 +892,16 @@ const style = {
     fontSize: "14px",
     fontWeight: "bold",
     cursor: "pointer"
+
   },
 
+
   helpImage: {
+
     width: "180px",
     height: "150px",
     objectFit: "contain"
+
   }
 
 };
