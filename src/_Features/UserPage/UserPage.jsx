@@ -124,6 +124,7 @@ function UserPage() {
 
       </div>
 
+
       <div style={style.secondDiv}>
 
         <h3>Quick OverView</h3>
@@ -146,9 +147,7 @@ function UserPage() {
                 {CountUseranimals()}
               </h2>
 
-              <p style={style.overviewTitle}>
-                My Pets
-              </p>
+              <p style={style.overviewTitle}>My Pets</p>
 
               <p style={style.overviewText}>
                 View all your pets
@@ -156,6 +155,7 @@ function UserPage() {
             </div>
 
           </div>
+
 
           <div style={style.overview}>
 
@@ -169,6 +169,7 @@ function UserPage() {
             </div>
 
             <div style={style.overviewInfo}>
+
               <h2 style={style.overviewCount}>
                 {CountUserVisits()}
               </h2>
@@ -180,9 +181,11 @@ function UserPage() {
               <p style={style.overviewText}>
                 Check scheduled visits
               </p>
+
             </div>
 
           </div>
+
 
           <div style={style.overview}>
 
@@ -196,6 +199,7 @@ function UserPage() {
             </div>
 
             <div style={style.overviewInfo}>
+
               <h2 style={style.overviewCount}>
                 {CountVaccines()}
               </h2>
@@ -207,9 +211,11 @@ function UserPage() {
               <p style={style.overviewText}>
                 Keep your pets safe
               </p>
+
             </div>
 
           </div>
+
 
           <div style={style.overview}>
 
@@ -244,6 +250,7 @@ function UserPage() {
 
       </div>
 
+
       <div style={style.thirdDiv}>
 
         <div style={style.appointmentsSection}>
@@ -251,9 +258,61 @@ function UserPage() {
           <h3>Upcoming Appointments</h3>
 
           <div style={style.appointmentsBox}>
+
+            {Visiters.map((visit) => {
+
+              const animal = Animals.find(
+                (animal) =>
+                  animal.animal_id === visit.animal_id &&
+                  animal.owner_id === user.user_id
+              );
+
+              if (!animal) {
+                return null;
+              }
+
+              return (
+                <div
+                  style={style.appointment}
+                  key={visit.visit_id}
+                >
+
+                  <img
+                    src={animal.photo_url}
+                    alt={animal.name}
+                    style={style.appointmentImage}
+                  />
+
+                  <div style={style.appointmentInfo}>
+
+                    <h3 style={style.appointmentName}>
+                      {animal.name}
+                    </h3>
+
+                    <p style={style.appointmentType}>
+                      {visit.diagnosis}
+                    </p>
+
+                  </div>
+
+
+                  <div style={style.appointmentDate}>
+                    <p>{visit.visit_date}</p>
+                  </div>
+
+
+                  <div style={style.calendarIcon}>
+                    📅
+                  </div>
+
+                </div>
+              );
+            })}
+
           </div>
 
         </div>
+
 
         <div style={style.tipsSection}>
 
@@ -281,6 +340,7 @@ function UserPage() {
 
           </div>
 
+
           <div style={style.helpBox}>
 
             <div style={style.helpInfo}>
@@ -295,12 +355,15 @@ function UserPage() {
                 assistance, we're here to help.
               </p>
 
-              <button  onClick={() => {
-                window.open(
-                  "https://mail.google.com/mail/?view=cm&fs=1&to=mhmdkhateeb92@gmail.com&su=Pet%20Care%20Support",
-                  "_blank"
-                );
-                 }} style={style.contactButton}>
+              <button
+                onClick={() => {
+                  window.open(
+                    "https://mail.google.com/mail/?view=cm&fs=1&to=mhmdkhateeb92@gmail.com&su=Pet%20Care%20Support",
+                    "_blank"
+                  );
+                }}
+                style={style.contactButton}
+              >
                 🎧 Contact Us
               </button>
 
@@ -323,6 +386,7 @@ function UserPage() {
 }
 
 export default UserPage;
+
 
 const style = {
 
@@ -444,7 +508,64 @@ const style = {
     width: "100%",
     height: "280px",
     backgroundColor: "white",
-    borderRadius: "15px"
+    borderRadius: "15px",
+    overflowY: "auto"
+  },
+
+  appointment: {
+    width: "100%",
+    height: "90px",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    padding: "15px 25px",
+    boxSizing: "border-box",
+    borderBottom: "1px solid #eee"
+  },
+
+  appointmentImage: {
+    width: "55px",
+    height: "55px",
+    minWidth: "55px",
+    borderRadius: "50%",
+    objectFit: "cover"
+  },
+
+  appointmentInfo: {
+    marginLeft: "20px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
+  },
+
+  appointmentName: {
+    margin: "0",
+    fontSize: "17px"
+  },
+
+  appointmentType: {
+    margin: "6px 0 0 0",
+    color: "#777",
+    fontSize: "14px"
+  },
+
+  appointmentDate: {
+    marginLeft: "auto",
+    textAlign: "right",
+    fontSize: "14px"
+  },
+
+  calendarIcon: {
+    width: "45px",
+    height: "45px",
+    minWidth: "45px",
+    marginLeft: "20px",
+    borderRadius: "50%",
+    backgroundColor: "#F3EEFF",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "20px"
   },
 
   tipsSection: {
