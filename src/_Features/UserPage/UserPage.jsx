@@ -97,7 +97,6 @@ function UserPage() {
               justifyContent: "center"
             }}
           >
-
             <h4>Welcome back,</h4>
 
             <h2>
@@ -106,7 +105,6 @@ function UserPage() {
             </h2>
 
             <p>We're happy to see you again!</p>
-
           </div>
 
         </div>
@@ -137,7 +135,6 @@ function UserPage() {
         <h3>Quick OverView</h3>
 
         <div style={style.OverViewBoxs}>
-
 
           <div style={style.overview}>
 
@@ -265,84 +262,72 @@ function UserPage() {
 
       <div style={style.thirdDiv}>
 
-
         <div style={style.appointmentsSection}>
 
           <h3>Upcoming Appointments</h3>
 
           <div style={style.appointmentsBox}>
 
-            {Visiters
-              .filter((visit) => {
+            {Visiters.map((visit) => {
 
-                const visitDate = new Date(visit.visit_date);
-                const today = new Date();
+              const animal = Animals.find(
+                (animal) =>
+                  animal.animal_id === visit.animal_id &&
+                  animal.owner_id === user.user_id
+              );
 
-                visitDate.setHours(0, 0, 0, 0);
-                today.setHours(0, 0, 0, 0);
+              if (!animal) {
+                return null;
+              }
 
-                return visitDate >= today;
-              })
-              .map((visit) => {
+              return (
+                <div
+                  style={style.appointment}
+                  key={visit.visit_id}
+                >
 
-                const animal = Animals.find(
-                  (animal) =>
-                    animal.animal_id === visit.animal_id &&
-                    animal.owner_id === user.user_id
-                );
+                  <img
+                    src={animal.photo_url}
+                    alt={animal.name}
+                    style={style.appointmentImage}
+                  />
 
-                if (!animal) {
-                  return null;
-                }
+                  <div style={style.appointmentInfo}>
 
-                return (
-                  <div
-                    style={style.appointment}
-                    key={visit.visit_id}
-                  >
+                    <h3 style={style.appointmentName}>
+                      {animal.name}
+                    </h3>
 
-                    <img
-                      src={animal.photo_url}
-                      alt={animal.name}
-                      style={style.appointmentImage}
-                    />
-
-                    <div style={style.appointmentInfo}>
-
-                      <h3 style={style.appointmentName}>
-                        {animal.name}
-                      </h3>
-
-                      <p style={style.appointmentType}>
-                        {visit.diagnosis}
-                      </p>
-
-                    </div>
-
-
-                    <div style={style.appointmentDate}>
-
-                      <p>
-                        {new Date(visit.visit_date).toLocaleDateString(
-                          "en-US",
-                          {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric"
-                          }
-                        )}
-                      </p>
-
-                    </div>
-
-
-                    <div style={style.calendarIcon}>
-                      📅
-                    </div>
+                    <p style={style.appointmentType}>
+                      {visit.diagnosis}
+                    </p>
 
                   </div>
-                );
-              })}
+
+
+                  <div style={style.appointmentDate}>
+
+                    <p>
+                      {new Date(visit.visit_date).toLocaleDateString(
+                        "en-US",
+                        {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric"
+                        }
+                      )}
+                    </p>
+
+                  </div>
+
+
+                  <div style={style.calendarIcon}>
+                    📅
+                  </div>
+
+                </div>
+              );
+            })}
 
           </div>
 
