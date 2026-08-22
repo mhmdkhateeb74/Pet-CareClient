@@ -1,11 +1,11 @@
 import React from "react";
-import protpet from "../../assets/propet.png";
-import helpPets from "../../assets/helpPets.png";
+import protpet from "../../../assets/propet.png";
+import helpPets from "../../../assets/helpPets.png";
 import {
   useGetAllAnimals,
   useGetAllVisiters,
   useGetAllVaccines
-} from "./API/apiHook";
+} from "./apiHook";
 
 function UserPage() {
 

@@ -5,7 +5,7 @@ import HomePage from "../_Features/HomePage/HomePage"
 import Infopage from "../_Features/InfoPage/Infopage"
 import Login from "../_Features/Login/login"
 import Register from "../_Features/Register/register"
-import UserPage from "../_Features/UserPage/UserPage";
+import UserPage from "../_Features/UserPage/Profile/UserPage";
 import UserLayout from "../LayOut/UserLayout"
 import MyPets from "../_Features/UserPage/MyPets/MyPets"
 
