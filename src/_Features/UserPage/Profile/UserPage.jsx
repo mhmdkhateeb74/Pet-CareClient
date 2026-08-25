@@ -363,7 +363,7 @@ function UserPage() {
 
 
                     <img
-                      src={animal.photo_url}
+                      src={`http://localhost:6127${animal.photo_url}`}
                       alt={animal.name}
                       style={style.appointmentImage}
                     />
