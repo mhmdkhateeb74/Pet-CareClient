@@ -72,6 +72,34 @@ async function DeletePet(id)
 
 }
 
+
+async function UpdatePet(formData) 
+{
+    let url=`${backURL}/${section}/Update`;
+    
+    const dataToSend = new FormData();
+    dataToSend.append("animal_id", formData.animal_id);
+    dataToSend.append("name", formData.name);
+    dataToSend.append("species", formData.species);
+    dataToSend.append("age", formData.age);
+    dataToSend.append("photo_url", formData.photo_url);
+    dataToSend.append("owner_id", formData.owner_id);
+    dataToSend.append("vet_id", formData.vet_id);
+
+    const response = await fetch(url, {
+        method: "PUT",
+        body: dataToSend,
+        credentials: "include"
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+
+}
+
 export{
-    RegisterPetApi,GetAllVet,DeletePet
+    RegisterPetApi,GetAllVet,DeletePet,UpdatePet
 }

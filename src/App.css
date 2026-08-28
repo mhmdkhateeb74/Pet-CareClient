@@ -30,3 +30,25 @@
   .deletePetButton:active {
     transform: scale(0.95);
   }
+
+  .editPetButton {
+    flex: 1;
+    padding: 12px;
+    background-color: white;
+    border: 1px solid #5B4DB7;
+    color: #5B4DB7;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .editPetButton:hover {
+    background-color: #5B4DB7;
+    color: white;
+  }
+  
+  .editPetButton:active {
+    transform: scale(0.95);
+  }

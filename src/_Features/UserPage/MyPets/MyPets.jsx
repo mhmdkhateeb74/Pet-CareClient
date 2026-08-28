@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useRegisterPetApi,useGetAllVet,useDeletePet } from "./apiHook";
+import { useRegisterPetApi,useGetAllVet,useDeletePet,useUpdatePet } from "./apiHook";
 import {useGetAllAnimals} from "../Profile/apiHook";
 
 function MyPets() {
 
   const [showAddPet, setShowAddPet] = useState(false);
+  const [showEditPet, setShowEditPet] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const {data:AllPets} =useGetAllAnimals();
@@ -22,8 +23,18 @@ function MyPets() {
     vet_id: -1,
 
 });
+const [editFormData, setEditFormData] = useState({
+  animal_id: -1,
+  name: "",
+  species: "",
+  age: -1,
+  photo_url: "",
+  owner_id: user.user_id,
+  vet_id: -1,
+});
 
 const { deletePet } = useDeletePet();
+ const {updatePet} = useUpdatePet();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -32,6 +43,30 @@ const { deletePet } = useDeletePet();
       ...prevData,
       [name]: name === "photo_url" ? files[0] : value
     }));
+  };
+
+  const handleEditChange = (e) => {
+    const { name, value, files } = e.target;
+  
+    setEditFormData(prevData => ({
+      ...prevData,
+      [name]: name === "photo_url" ? files[0] : value
+    }));
+  };
+  
+
+  const handleEdit = (Pet) => {
+    setEditFormData({
+      animal_id: Pet.animal_id, 
+      name: Pet.name,
+      species: Pet.species,
+      age: Pet.age,
+      photo_url: Pet.photo_url,
+      owner_id: Pet.owner_id,
+      vet_id: Pet.vet_id
+    });
+  
+    setShowEditPet(true);
   };
 
   const handleDelete = (id) => {
@@ -47,6 +82,16 @@ const handleSubmit = (e) => {
       }
   });
 };
+
+const handleUpdate = (e) => {
+    e.preventDefault();
+
+    updatePet(editFormData, {
+      onSuccess: () => {
+        setShowEditPet(false);
+      }
+    });
+  };
 
 
 const UserPets = Pets.filter((Pet) => {
@@ -108,7 +153,10 @@ const UserPets = Pets.filter((Pet) => {
           
                 <div style={style.actionButtons}>
           
-                  <button style={style.editButton}>
+                  <button    
+                  onClick={() => handleEdit(Pet)}
+                  className="editPetButton"
+                  >
                     ✎ &nbsp; Edit
                   </button>
           
@@ -306,6 +354,109 @@ const UserPets = Pets.filter((Pet) => {
 
         </div>
 
+      )}
+
+      {showEditPet && (
+        <div style={style.overlay}>
+        
+          <div style={style.addPetPanel}>
+      
+            {/* HEADER */}
+            <div style={style.panelHeader}>
+              <div>
+                <h2 style={style.panelTitle}>Edit Pet</h2>
+                <p style={style.panelSubtitle}>
+                  Update your pet's information
+                </p>
+              </div>
+      
+              <button
+                style={style.closeButton}
+                onClick={() => setShowEditPet(false)}
+              >
+                ✕
+              </button>
+            </div>
+      
+      
+            {/* PET NAME */}
+            <div style={style.formGroup}>
+              <label style={style.label}>Pet Name</label>
+      
+              <input
+                type="text"
+                name="name"
+                value={editFormData.name}
+                onChange={handleEditChange}
+                style={style.input}
+              />
+            </div>
+      
+      
+            {/* SPECIES */}
+            <div style={style.formGroup}>
+              <label style={style.label}>Species</label>
+      
+              <input
+                type="text"
+                name="species"
+                value={editFormData.species}
+                onChange={handleEditChange}
+                style={style.input}
+              />
+            </div>
+      
+      
+            {/* AGE */}
+            <div style={style.formGroup}>
+              <label style={style.label}>Age</label>
+      
+              <input
+                type="number"
+                name="age"
+                value={editFormData.age}
+                onChange={handleEditChange}
+                style={style.input}
+              />
+            </div>
+      
+      
+            {/* PHOTO */}
+            <div style={style.formGroup}>
+              <label style={style.label}>Change Photo</label>
+      
+              <input
+                type="file"
+                name="photo_url"
+                accept="image/*"
+                onChange={handleEditChange}
+                style={style.input}
+              />
+            </div>
+      
+      
+            {/* BUTTONS */}
+            <div style={style.panelButtons}>
+      
+              <button
+                type="button"
+                style={style.cancelButton}
+                onClick={() => setShowEditPet(false)}
+              >
+                Cancel
+              </button>
+      
+              <button
+                onClick={handleUpdate}
+                style={style.saveButton}
+              >
+                Update Pet
+              </button>
+      
+            </div>
+      
+          </div>
+        </div>
       )}
 
     </div>
