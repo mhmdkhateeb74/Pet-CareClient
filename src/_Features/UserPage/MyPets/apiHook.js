@@ -1,11 +1,8 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import {RegisterPetApi,GetAllVet} from "./apiPets";
-
-
-
+import { useMutation, useQuery,  useQueryClient } from "@tanstack/react-query";
+import {RegisterPetApi,GetAllVet,DeletePet} from "./apiPets";
 
 function useRegisterPetApi() {
-   
+    const queryClient = useQueryClient();
 
     const { mutate:RegisterPet} = useMutation(
         {
@@ -14,7 +11,10 @@ function useRegisterPetApi() {
                 console.log("err", err)
             },
             onSuccess: (data)=>{
-                console.log(data);
+                
+                queryClient.invalidateQueries({
+                    queryKey: ["allAnimals"]
+                });
                 },
         }
     );
@@ -35,5 +35,28 @@ function useGetAllVet() {
     return query;
 }
 
+function useDeletePet() {
 
-export {useRegisterPetApi,useGetAllVet};
+    const queryClient = useQueryClient();
+
+    const { mutate:deletePet} = useMutation(
+        {
+            mutationFn: DeletePet,
+            onError: async (err) => {
+                console.log("err", err)
+            },
+            onSuccess: (data) => {
+                console.log(data);
+    
+                queryClient.invalidateQueries({
+                    queryKey: ["allAnimals"]
+                });
+            },
+        }
+    );
+
+    return {deletePet};
+}
+
+
+export {useRegisterPetApi,useGetAllVet,useDeletePet};

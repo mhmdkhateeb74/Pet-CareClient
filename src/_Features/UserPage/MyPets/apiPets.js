@@ -48,7 +48,30 @@ async function GetAllVet() {
     return response.json();
 }
 
+async function DeletePet(id) 
+{
+    let url=`${backURL}/${section}/Delete`;
+    
+    const strToSend = JSON.stringify({  animal_id: id});
+    const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: strToSend,
+        credentials: 'include'
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+
+
+}
 
 export{
-    RegisterPetApi,GetAllVet,
+    RegisterPetApi,GetAllVet,DeletePet
 }

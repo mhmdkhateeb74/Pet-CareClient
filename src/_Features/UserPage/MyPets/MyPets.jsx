@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRegisterPetApi,useGetAllVet } from "./apiHook";
+import { useRegisterPetApi,useGetAllVet,useDeletePet } from "./apiHook";
 import {useGetAllAnimals} from "../Profile/apiHook";
 
 function MyPets() {
@@ -23,6 +23,7 @@ function MyPets() {
 
 });
 
+const { deletePet } = useDeletePet();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -31,6 +32,10 @@ function MyPets() {
       ...prevData,
       [name]: name === "photo_url" ? files[0] : value
     }));
+  };
+
+  const handleDelete = (id) => {
+    deletePet(id)
   };
 
 const handleSubmit = (e) => {
@@ -101,17 +106,16 @@ const UserPets = Pets.filter((Pet) => {
                   <span>{Pet.age} years old</span>
                 </div>
           
-                <button style={style.detailsButton}>
-                  ◉ &nbsp; View Details
-                </button>
-          
                 <div style={style.actionButtons}>
           
                   <button style={style.editButton}>
                     ✎ &nbsp; Edit
                   </button>
           
-                  <button style={style.deleteButton}>
+                  <button 
+                  onClick={()=>handleDelete(Pet.animal_id)}
+                  className="deletePetButton"
+                  >
                     🗑 &nbsp; Delete
                   </button>
           
@@ -402,47 +406,11 @@ const style = {
     color: "#333"
   },
 
-  detailsButton: {
-    width: "100%",
-    padding: "12px",
-    marginTop: "5px",
-    backgroundColor: "white",
-    border: "1px solid #5B4DB7",
-    color: "#5B4DB7",
-    borderRadius: "8px",
-    fontSize: "16px",
-    fontWeight: "bold",
-    cursor: "pointer"
-  },
 
   actionButtons: {
     display: "flex",
     gap: "15px",
     marginTop: "15px"
-  },
-
-  editButton: {
-    flex: 1,
-    padding: "12px",
-    backgroundColor: "white",
-    border: "1px solid #5B4DB7",
-    color: "#5B4DB7",
-    borderRadius: "8px",
-    fontSize: "16px",
-    fontWeight: "bold",
-    cursor: "pointer"
-  },
-
-  deleteButton: {
-    flex: 1,
-    padding: "12px",
-    backgroundColor: "white",
-    border: "1px solid #E53935",
-    color: "#E53935",
-    borderRadius: "8px",
-    fontSize: "16px",
-    fontWeight: "bold",
-    cursor: "pointer"
   },
 
 
