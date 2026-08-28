@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useRegisterPetApi,useGetAllVet } from "./apiHook";
+import {useGetAllAnimals} from "../Profile/apiHook";
 
 function MyPets() {
 
   const [showAddPet, setShowAddPet] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const {data:AllPets} =useGetAllAnimals();
+  const Pets = AllPets?.list || [];
 
   const { RegisterPet } = useRegisterPetApi();
   const { data:VetsData } = useGetAllVet();
@@ -18,6 +22,7 @@ function MyPets() {
     vet_id: -1,
 
 });
+
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -37,6 +42,13 @@ const handleSubmit = (e) => {
       }
   });
 };
+
+
+const UserPets = Pets.filter((Pet) => {
+
+  return Pet.owner_id === user.user_id;
+
+})
 
   return (
     <div style={style.page}>
@@ -64,6 +76,51 @@ const handleSubmit = (e) => {
 
       {/* SECOND DIV - YOU CONNECT YOUR ANIMALS HERE */}
       <div style={style.secondDiv}>
+
+      {UserPets.map((Pet) => {
+          return (
+            <div key={Pet.animal_id} style={style.petCard}>
+            
+              <img
+                src={`http://localhost:6127${Pet.photo_url}`}
+                alt={Pet.name}
+                style={style.petImage}
+              />
+
+              <div style={style.petInfo}>
+          
+                <h2 style={style.petName}>{Pet.name}</h2>
+          
+                <div style={style.petDetail}>
+                  <span>🐾</span>
+                  <span>{Pet.species}</span>
+                </div>
+          
+                <div style={style.petDetail}>
+                  <span>📅</span>
+                  <span>{Pet.age} years old</span>
+                </div>
+          
+                <button style={style.detailsButton}>
+                  ◉ &nbsp; View Details
+                </button>
+          
+                <div style={style.actionButtons}>
+          
+                  <button style={style.editButton}>
+                    ✎ &nbsp; Edit
+                  </button>
+          
+                  <button style={style.deleteButton}>
+                    🗑 &nbsp; Delete
+                  </button>
+          
+                </div>
+          
+              </div>
+            </div>
+          );
+        })}
 
       </div>
 
@@ -257,6 +314,7 @@ export default MyPets;
 
 const style = {
 
+  // PAGE
   page: {
     minHeight: "100vh",
     backgroundColor: "#F3EEF9",
@@ -268,7 +326,6 @@ const style = {
 
 
   // FIRST DIV
-
   firstDiv: {
     width: "100%",
     display: "flex",
@@ -300,20 +357,96 @@ const style = {
   },
 
 
-  // SECOND DIV
-
+  // SECOND DIV - PET CARDS
   secondDiv: {
     width: "100%",
     minHeight: "450px",
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gap: "25px",
+    alignItems: "start"
+  },
+
+  petCard: {
+    backgroundColor: "white",
+    borderRadius: "15px",
+    padding: "15px",
+    boxSizing: "border-box",
+    boxShadow: "0px 3px 12px rgba(0, 0, 0, 0.12)"
+  },
+
+  petImage: {
+    width: "100%",
+    height: "200px",
+    objectFit: "cover",
+    borderRadius: "10px",
+    display: "block"
+  },
+
+  petInfo: {
+    paddingTop: "15px"
+  },
+
+  petName: {
+    margin: "0 0 15px 0",
+    fontSize: "24px",
+    fontWeight: "bold"
+  },
+
+  petDetail: {
     display: "flex",
-    flexWrap: "wrap",
-    alignItems: "flex-start",
-    gap: "25px"
+    alignItems: "center",
+    gap: "9px",
+    marginBottom: "12px",
+    fontSize: "16px",
+    color: "#333"
+  },
+
+  detailsButton: {
+    width: "100%",
+    padding: "12px",
+    marginTop: "5px",
+    backgroundColor: "white",
+    border: "1px solid #5B4DB7",
+    color: "#5B4DB7",
+    borderRadius: "8px",
+    fontSize: "16px",
+    fontWeight: "bold",
+    cursor: "pointer"
+  },
+
+  actionButtons: {
+    display: "flex",
+    gap: "15px",
+    marginTop: "15px"
+  },
+
+  editButton: {
+    flex: 1,
+    padding: "12px",
+    backgroundColor: "white",
+    border: "1px solid #5B4DB7",
+    color: "#5B4DB7",
+    borderRadius: "8px",
+    fontSize: "16px",
+    fontWeight: "bold",
+    cursor: "pointer"
+  },
+
+  deleteButton: {
+    flex: 1,
+    padding: "12px",
+    backgroundColor: "white",
+    border: "1px solid #E53935",
+    color: "#E53935",
+    borderRadius: "8px",
+    fontSize: "16px",
+    fontWeight: "bold",
+    cursor: "pointer"
   },
 
 
   // THIRD DIV
-
   thirdDiv: {
     width: "100%",
     height: "150px",
@@ -349,7 +482,6 @@ const style = {
 
 
   // OVERLAY
-
   overlay: {
     position: "fixed",
     top: 0,
@@ -365,7 +497,6 @@ const style = {
 
 
   // ADD PET PANEL
-
   addPetPanel: {
     width: "450px",
     maxHeight: "90vh",
@@ -402,7 +533,6 @@ const style = {
 
 
   // IMAGE
-
   imageSection: {
     display: "flex",
     flexDirection: "column",
@@ -430,7 +560,6 @@ const style = {
 
 
   // FORM
-
   formGroup: {
     display: "flex",
     flexDirection: "column",
@@ -455,8 +584,7 @@ const style = {
   },
 
 
-  // BUTTONS
-
+  // PANEL BUTTONS
   panelButtons: {
     display: "flex",
     justifyContent: "flex-end",
