@@ -1,7 +1,7 @@
 import loginpic from "../../assets/loginpic.png";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useRegisterUser } from "./apiHook";
+import { useRegisterUser } from "../API/apiHook";
 
 function Register() {
 

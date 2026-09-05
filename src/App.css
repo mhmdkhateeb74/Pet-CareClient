@@ -52,3 +52,46 @@
   .editPetButton:active {
     transform: scale(0.95);
   }
+
+  .bookVisitButton {
+    padding: 12px;
+    background-color: #5B4DB7;
+    border: 1px solid #5B4DB7;
+    color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    text-decoration: none;
+  }
+  
+  .bookVisitButton:hover {
+    background-color: #493D9E;
+  }
+  
+  .bookVisitButton:active {
+    transform: scale(0.95);
+  }
+  
+  
+  .medicalHistoryButton {
+    padding: 12px;
+    background-color: white;
+    border: 1px solid #5B4DB7;
+    color: #5B4DB7;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    text-decoration: none;
+  }
+  
+  .medicalHistoryButton:hover {
+    background-color: #F3EEF9;
+  }
+  
+  .medicalHistoryButton:active {
+    transform: scale(0.95);
+  }

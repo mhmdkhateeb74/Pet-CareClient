@@ -8,6 +8,8 @@ import Register from "../_Features/Register/register"
 import UserPage from "../_Features/UserPage/Profile/UserPage";
 import UserLayout from "../LayOut/UserLayout"
 import MyPets from "../_Features/UserPage/MyPets/MyPets"
+import Visit from "../_Features/UserPage/MyPets/Visits/Visit"
+import History from "../_Features/UserPage/MyPets/MedicalHistory/History"
 
 const router = createBrowserRouter([
     {
@@ -33,7 +35,16 @@ const router = createBrowserRouter([
             {
                 path: "MyPets",
                 element: <MyPets />
+            },
+            {
+                path: "Visit/:animal_id",
+                element: <Visit />
+            },
+            {
+                path: "History/:animal_id",
+                element: <History />
             }
+            
         ]
     }
 

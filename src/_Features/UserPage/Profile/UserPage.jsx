@@ -5,7 +5,7 @@ import {
   useGetAllAnimals,
   useGetAllVisiters,
   useGetAllVaccines
-} from "./apiHook";
+} from "../../API/apiHook";
 
 function UserPage() {
 

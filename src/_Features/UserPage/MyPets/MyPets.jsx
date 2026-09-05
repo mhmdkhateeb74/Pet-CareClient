@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useRegisterPetApi,useGetAllVet,useDeletePet,useUpdatePet } from "./apiHook";
-import {useGetAllAnimals} from "../Profile/apiHook";
+import { useRegisterPetApi,useGetAllVet,useDeletePet,useUpdatePet,useGetAllAnimals } from "../../API/apiHook";
+import { Link } from "react-router-dom";
+
 
 function MyPets() {
 
@@ -32,6 +33,7 @@ const [editFormData, setEditFormData] = useState({
   owner_id: user.user_id,
   vet_id: -1,
 });
+
 
 const { deletePet } = useDeletePet();
  const {updatePet} = useUpdatePet();
@@ -100,6 +102,7 @@ const UserPets = Pets.filter((Pet) => {
 
 })
 
+
   return (
     <div style={style.page}>
 
@@ -164,8 +167,21 @@ const UserPets = Pets.filter((Pet) => {
                   onClick={()=>handleDelete(Pet.animal_id)}
                   className="deletePetButton"
                   >
-                    🗑 &nbsp; Delete
+                     &nbsp; Delete
                   </button>
+
+                  <Link
+                    to={`/User/Visit/${Pet.animal_id}`}
+                    className="bookVisitButton"
+                  >
+                    Book Visit
+                  </Link>
+                  <Link
+                    to={`/User/History/${Pet.animal_id}`}
+                    className="medicalHistoryButton"
+                  >
+                    Medical History
+                  </Link>
           
                 </div>
           
@@ -559,8 +575,9 @@ const style = {
 
 
   actionButtons: {
-    display: "flex",
-    gap: "15px",
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "10px",
     marginTop: "15px"
   },
 
