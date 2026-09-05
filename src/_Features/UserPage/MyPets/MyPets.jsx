@@ -127,7 +127,7 @@ const UserPets = Pets.filter((Pet) => {
       </div>
 
 
-      {/* SECOND DIV - YOU CONNECT YOUR ANIMALS HERE */}
+      
       <div style={style.secondDiv}>
 
       {UserPets.map((Pet) => {
@@ -193,8 +193,8 @@ const UserPets = Pets.filter((Pet) => {
       </div>
 
 
-      {/* THIRD DIV */}
-      <div style={style.thirdDiv}>
+     
+      <div style={style.thirdDiv} onClick={()=>setShowAddPet(true)}>
 
         <div style={style.pawIcon}>
           🐾
@@ -211,14 +211,14 @@ const UserPets = Pets.filter((Pet) => {
       </div>
 
 
-      {/* ADD PET PANEL */}
+      
       {showAddPet && (
 
         <div style={style.overlay}>
 
           <div style={style.addPetPanel}>
 
-            {/* HEADER */}
+          
             <div style={style.panelHeader}>
 
               <div>
@@ -241,7 +241,7 @@ const UserPets = Pets.filter((Pet) => {
             </div>
 
 
-            {/* PHOTO */}
+         
             <div style={style.imageSection}>
 
               <div style={style.imageCircle}>
@@ -265,7 +265,7 @@ const UserPets = Pets.filter((Pet) => {
             </div>
 
 
-            {/* PET NAME */}
+           
             <div style={style.formGroup}>
 
               <label style={style.label}>
@@ -283,7 +283,7 @@ const UserPets = Pets.filter((Pet) => {
             </div>
 
 
-            {/* SPECIES */}
+           
             <div style={style.formGroup}>
 
               <label style={style.label}>
@@ -301,7 +301,7 @@ const UserPets = Pets.filter((Pet) => {
             </div>
 
 
-            {/* AGE */}
+            
             <div style={style.formGroup}>
 
               <label style={style.label}>
@@ -319,7 +319,7 @@ const UserPets = Pets.filter((Pet) => {
             </div>
 
 
-            {/* VETERINARIAN / DOCTOR */}
+          
             <div style={style.formGroup}>
 
               <label style={style.label}>
@@ -348,7 +348,7 @@ const UserPets = Pets.filter((Pet) => {
             </div>
 
 
-            {/* BUTTONS */}
+           
             <div style={style.panelButtons}>
 
               <button
@@ -377,7 +377,7 @@ const UserPets = Pets.filter((Pet) => {
         
           <div style={style.addPetPanel}>
       
-            {/* HEADER */}
+           
             <div style={style.panelHeader}>
               <div>
                 <h2 style={style.panelTitle}>Edit Pet</h2>
@@ -395,7 +395,6 @@ const UserPets = Pets.filter((Pet) => {
             </div>
       
       
-            {/* PET NAME */}
             <div style={style.formGroup}>
               <label style={style.label}>Pet Name</label>
       
@@ -409,7 +408,7 @@ const UserPets = Pets.filter((Pet) => {
             </div>
       
       
-            {/* SPECIES */}
+            
             <div style={style.formGroup}>
               <label style={style.label}>Species</label>
       
@@ -423,7 +422,7 @@ const UserPets = Pets.filter((Pet) => {
             </div>
       
       
-            {/* AGE */}
+           
             <div style={style.formGroup}>
               <label style={style.label}>Age</label>
       
@@ -437,7 +436,7 @@ const UserPets = Pets.filter((Pet) => {
             </div>
       
       
-            {/* PHOTO */}
+            
             <div style={style.formGroup}>
               <label style={style.label}>Change Photo</label>
       
@@ -451,7 +450,7 @@ const UserPets = Pets.filter((Pet) => {
             </div>
       
       
-            {/* BUTTONS */}
+            
             <div style={style.panelButtons}>
       
               <button
@@ -485,7 +484,7 @@ export default MyPets;
 
 const style = {
 
-  // PAGE
+ 
   page: {
     minHeight: "100vh",
     backgroundColor: "#F3EEF9",
@@ -496,7 +495,7 @@ const style = {
   },
 
 
-  // FIRST DIV
+ 
   firstDiv: {
     width: "100%",
     display: "flex",
@@ -528,7 +527,7 @@ const style = {
   },
 
 
-  // SECOND DIV - PET CARDS
+ 
   secondDiv: {
     width: "100%",
     minHeight: "450px",
@@ -582,7 +581,7 @@ const style = {
   },
 
 
-  // THIRD DIV
+  
   thirdDiv: {
     width: "100%",
     height: "150px",
@@ -617,7 +616,7 @@ const style = {
   },
 
 
-  // OVERLAY
+  
   overlay: {
     position: "fixed",
     top: 0,
@@ -632,7 +631,7 @@ const style = {
   },
 
 
-  // ADD PET PANEL
+  
   addPetPanel: {
     width: "450px",
     maxHeight: "90vh",
@@ -668,7 +667,7 @@ const style = {
   },
 
 
-  // IMAGE
+ 
   imageSection: {
     display: "flex",
     flexDirection: "column",
@@ -695,7 +694,7 @@ const style = {
   },
 
 
-  // FORM
+
   formGroup: {
     display: "flex",
     flexDirection: "column",
@@ -720,7 +719,7 @@ const style = {
   },
 
 
-  // PANEL BUTTONS
+ 
   panelButtons: {
     display: "flex",
     justifyContent: "flex-end",

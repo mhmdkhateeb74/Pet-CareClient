@@ -99,7 +99,7 @@ function UserPage() {
     <div style={style.page}>
 
 
-      {/* TOP SECTION */}
+      
 
       <div style={style.firstDiv}>
 
@@ -164,7 +164,7 @@ function UserPage() {
       </div>
 
 
-      {/* QUICK OVERVIEW */}
+     
 
       <div style={style.secondDiv}>
 
@@ -174,7 +174,7 @@ function UserPage() {
         <div style={style.OverViewBoxs}>
 
 
-          {/* PETS */}
+       
 
           <div style={style.overview}>
 
@@ -207,7 +207,7 @@ function UserPage() {
           </div>
 
 
-          {/* UPCOMING VISITS */}
+          
 
           <div style={style.overview}>
 
@@ -240,7 +240,7 @@ function UserPage() {
           </div>
 
 
-          {/* VACCINES */}
+         
 
           <div style={style.overview}>
 
@@ -273,7 +273,7 @@ function UserPage() {
           </div>
 
 
-          {/* ALL RECORDS */}
+        
 
           <div style={style.overview}>
 
@@ -311,13 +311,12 @@ function UserPage() {
       </div>
 
 
-      {/* BOTTOM SECTION */}
+      
 
       <div style={style.thirdDiv}>
 
 
-        {/* UPCOMING APPOINTMENTS */}
-
+       
         <div style={style.appointmentsSection}>
 
           <h3>Upcoming Appointments</h3>
@@ -418,7 +417,7 @@ function UserPage() {
         </div>
 
 
-        {/* RIGHT SIDE */}
+      
 
         <div style={style.tipsSection}>
 
@@ -452,7 +451,7 @@ function UserPage() {
           </div>
 
 
-          {/* HELP */}
+         
 
           <div style={style.helpBox}>
 
