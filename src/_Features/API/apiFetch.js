@@ -201,6 +201,37 @@ async function GetAllVaccines() {
     return response.json();
 }
 
+async function AddVisit(formData) 
+{
+    let url=`${backURL}/VI/Add`;
+    console.log(url)
+    const strToSend = JSON.stringify(formData);
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: strToSend,
+        credentials: 'include'
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+}
+
 export{
-    LoginUser, RegisterUserApi,RegisterPetApi,GetAllVet,DeletePet,UpdatePet,GetAllAnimals,GetAllVisiters,GetAllVaccines,
+    LoginUser,
+    RegisterUserApi,
+    RegisterPetApi,
+    GetAllVet,
+    DeletePet,
+    UpdatePet,
+    GetAllAnimals,
+    GetAllVisiters,
+    GetAllVaccines,
+    AddVisit
 }

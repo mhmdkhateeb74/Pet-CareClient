@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams,Link } from "react-router-dom";
 import { useGetAllAnimals,useGetAllVisiters,useGetAllVet,useGetAllVaccines } from "../../../API/apiHook";
 
 
@@ -50,6 +50,9 @@ const VaccPet = Vaccines.filter((Vaccin) => {
   return (
     <div style={style.page}>
 
+      <Link to="/User/MyPets" style={style.backLink}>
+        ← Back to My Pets
+      </Link>
     
       <div style={style.header}>
 
@@ -273,6 +276,15 @@ const style = {
     gap: "15px",
     marginBottom: "30px",
     boxShadow: "0px 3px 12px rgba(0, 0, 0, 0.08)"
+  },
+
+  backLink: {
+    display: "inline-block",
+    marginBottom: "20px",
+    color: "#5B4DB7",
+    textDecoration: "none",
+    fontSize: "20px",
+    fontWeight: "bold"
   },
 
   petIcon: {

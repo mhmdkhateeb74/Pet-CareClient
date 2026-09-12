@@ -7,7 +7,8 @@ import {LoginUser,
     UpdatePet,
     GetAllAnimals,
     GetAllVisiters,
-    GetAllVaccines} from "./apiFetch";
+    GetAllVaccines,
+    AddVisit} from "./apiFetch";
 import { useNavigate } from "react-router-dom";
 
 function useLoginUser() {
@@ -173,6 +174,25 @@ function useGetAllVaccines() {
     return query;
 }
 
+function useAddVisit() {
+    const Navigate=useNavigate();
+
+    const {isLoading:IsVisitng, mutate:SetVisit} = useMutation(
+        {
+            mutationFn: AddVisit,
+            onError: async (err) => {
+                console.log("err", err)
+            },
+            onSuccess: (data)=>{
+                Navigate("/User/MyPets");
+
+            },
+        }
+    );
+
+    return {IsVisitng, SetVisit,};
+}
+
 
 
 export {useLoginUser,
@@ -183,4 +203,6 @@ export {useLoginUser,
     useUpdatePet,
     useGetAllAnimals,
     useGetAllVisiters,
-    useGetAllVaccines};
+    useGetAllVaccines,
+    useAddVisit,
+};

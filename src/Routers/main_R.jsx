@@ -61,8 +61,8 @@ export const navItems = [
 export const navUser = [
     {id:1 ,path:"/" ,name:"HomePage" },
     {id:2 ,path:"/Infopage" ,name:"About us" },
-    {id:3 ,path:"/User" ,name:"ProFile" },
-    {id:4 ,path:"/User/MyPets" ,name:"MyPets" },
+    {id:3 ,path:"/User" ,name:"Profile" },
+    {id:4 ,path:"/User/MyPets" ,name:"My Pets" },
    ,
     
 ]
