@@ -48,9 +48,16 @@ function Visit() {
 const handleSubmit = (e) => {
   e.preventDefault();
 
+  if(formData.vet_id === ""|| formData.visit_date === ""){
+    alert("Please fill the info")
+  }else{
+
   SetVisit(formData);
 
+  }
 };
+
+const today = new Date().toISOString().split("T")[0];
 
   return (
     <div style={style.page}>
@@ -149,6 +156,7 @@ const handleSubmit = (e) => {
             <input
               type="date"
               name="visit_date"
+              min={today}
               onChange={handleChange}
               style={style.input}
             />

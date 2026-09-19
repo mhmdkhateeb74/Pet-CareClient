@@ -175,6 +175,7 @@ function useGetAllVaccines() {
 }
 
 function useAddVisit() {
+    const queryClient = useQueryClient();
     const Navigate=useNavigate();
 
     const {isLoading:IsVisitng, mutate:SetVisit} = useMutation(
@@ -184,6 +185,11 @@ function useAddVisit() {
                 console.log("err", err)
             },
             onSuccess: (data)=>{
+
+                queryClient.invalidateQueries({
+                    queryKey: ["AllVisiters"]
+                });
+
                 Navigate("/User/MyPets");
 
             },
