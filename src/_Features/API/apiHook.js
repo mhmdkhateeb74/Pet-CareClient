@@ -8,7 +8,9 @@ import {LoginUser,
     GetAllAnimals,
     GetAllVisiters,
     GetAllVaccines,
-    AddVisit} from "./apiFetch";
+    AddVisit,
+    GetAllNotifications,
+    AddNotification,} from "./apiFetch";
 import { useNavigate } from "react-router-dom";
 
 function useLoginUser() {
@@ -200,6 +202,44 @@ function useAddVisit() {
 }
 
 
+function useGetAllNotifications() {
+    const query = useQuery({
+        queryKey: ['AllNotifications'],
+        queryFn: () => GetAllNotifications(),
+        staleTime: 5 * 60 * 1000, 
+        gcTime: 5 * 60 * 1000, 
+        retry: (failureCount, error) => {
+            return failureCount < 3;
+        }
+    });
+    return query;
+}
+
+function useAddNotification() {
+
+    const queryClient = useQueryClient();
+
+    const {isLoading:IsNotification, mutate:SetNotification} = useMutation(
+        {
+            mutationFn: AddNotification,
+
+            onError: async (err) => {
+                console.log("err", err)
+            },
+
+            onSuccess: (data) => {
+
+                queryClient.invalidateQueries({
+                    queryKey: ["AllNotifications"]
+                });
+
+            },
+        }
+    );
+
+    return {IsNotification, SetNotification,};
+}
+
 
 export {useLoginUser,
     useRegisterUser,
@@ -211,4 +251,7 @@ export {useLoginUser,
     useGetAllVisiters,
     useGetAllVaccines,
     useAddVisit,
+    useGetAllNotifications,
+    useAddNotification,
+    
 };

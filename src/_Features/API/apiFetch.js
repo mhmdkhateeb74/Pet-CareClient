@@ -223,6 +223,46 @@ async function AddVisit(formData)
     return response.json();
 }
 
+async function GetAllNotifications() {
+    let url=`${backURL}/NF/List`;
+    console.log(url);
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'accept': 'application/json',
+        },
+        credentials: 'include'
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+}
+
+async function AddNotification(data) {
+
+    let url = `${backURL}/NF/Add`;
+    console.log(url);
+
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+}
+
 export{
     LoginUser,
     RegisterUserApi,
@@ -233,5 +273,7 @@ export{
     GetAllAnimals,
     GetAllVisiters,
     GetAllVaccines,
-    AddVisit
+    AddVisit,
+    GetAllNotifications,
+    AddNotification,
 }
