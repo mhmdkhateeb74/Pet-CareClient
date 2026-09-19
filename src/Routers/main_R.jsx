@@ -10,6 +10,10 @@ import UserLayout from "../LayOut/UserLayout"
 import MyPets from "../_Features/UserPage/MyPets/MyPets"
 import Visit from "../_Features/UserPage/MyPets/Visits/Visit"
 import History from "../_Features/UserPage/MyPets/MedicalHistory/History"
+import DoctorLayout from "../LayOut/DoctorLayout"
+import DoctorPage from "../_Features/Doctor/DoctorPage";
+import DoctorVisits from "../_Features/Doctor/DoctorVisits";
+import DoctorPatients from "../_Features/Doctor/DoctorPatients";
 
 const router = createBrowserRouter([
     {
@@ -46,6 +50,28 @@ const router = createBrowserRouter([
             }
             
         ]
+    },
+    {
+        path: "/Doctor",
+        element: <DoctorLayout />,
+        children: [
+            {
+                index: true,
+                element: <DoctorPage />
+            },
+            {
+                path:"Visits",
+                element:<DoctorVisits/>
+
+            },
+            {
+                path:"Patients",
+                element:<DoctorPatients/>
+
+            }
+            
+            
+        ]
     }
 
 ]);
@@ -63,7 +89,16 @@ export const navUser = [
     {id:2 ,path:"/Infopage" ,name:"About us" },
     {id:3 ,path:"/User" ,name:"Profile" },
     {id:4 ,path:"/User/MyPets" ,name:"My Pets" },
-   ,
+    
+]
+
+export const navDoctor = [
+    {id:1 ,path:"/" ,name:"HomePage" },
+    {id:2 ,path:"/Infopage" ,name:"About us" },
+    {id:3 ,path:"/Doctor" ,name:"Profile" },
+    {id:4, path:"/Doctor/Visits", name:"Visits"},
+    {id:5, path:"/Doctor/Patients", name:"Patients"},
+    
     
 ]
 
