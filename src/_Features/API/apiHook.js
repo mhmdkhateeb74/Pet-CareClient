@@ -10,7 +10,8 @@ import {LoginUser,
     GetAllVaccines,
     AddVisit,
     GetAllNotifications,
-    AddNotification,} from "./apiFetch";
+    AddNotification,
+    GetAllUsers,} from "./apiFetch";
 import { useNavigate } from "react-router-dom";
 
 function useLoginUser() {
@@ -247,6 +248,20 @@ function useAddNotification() {
 }
 
 
+function useGetAllUsers() {
+    const query = useQuery({
+        queryKey: ['AllUsers'],
+        queryFn: () => GetAllUsers(),
+        staleTime: 5 * 60 * 1000, 
+        gcTime: 5 * 60 * 1000, 
+        retry: (failureCount, error) => {
+            return failureCount < 3;
+        }
+    });
+    return query;
+}
+
+
 export {useLoginUser,
     useRegisterUser,
     useRegisterPetApi,
@@ -259,5 +274,5 @@ export {useLoginUser,
     useAddVisit,
     useGetAllNotifications,
     useAddNotification,
-    
+    useGetAllUsers,
 };

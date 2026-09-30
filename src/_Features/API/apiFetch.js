@@ -263,6 +263,26 @@ async function AddNotification(data) {
     return response.json();
 }
 
+
+async function GetAllUsers() {
+    let url=`${backURL}/US/List`;
+    console.log(url);
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'accept': 'application/json',
+        },
+        credentials: 'include'
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+}
+
+
 export{
     LoginUser,
     RegisterUserApi,
@@ -276,4 +296,5 @@ export{
     AddVisit,
     GetAllNotifications,
     AddNotification,
+    GetAllUsers,
 }

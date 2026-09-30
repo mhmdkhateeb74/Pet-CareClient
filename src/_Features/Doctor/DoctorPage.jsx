@@ -4,6 +4,8 @@ import {
   useGetAllVet,
   useGetAllVisiters,
   useGetAllVaccines,
+  useGetAllAnimals,
+  useGetAllUsers,
 
 } from "../API/apiHook"
 
@@ -11,17 +13,21 @@ function DoctorPage() {
 
   const user = JSON.parse(localStorage.getItem("user"));
   
-  const {data: AllVets,  isLoading: IsVet} = useGetAllVet();
+  const {data:  AllVets,  isLoading: IsVet} = useGetAllVet();
   const { data: AllVisiters, isLoading: IsVisiters } = useGetAllVisiters();
   const { data: AllVaccines, isLoading: IsVaccines } = useGetAllVaccines();
+  const { data: AllAnimals, isLoading: isAnimals } = useGetAllAnimals();
+  const { data: AllUsers, isLoading: IsUsers } = useGetAllUsers();
   
-  if (IsVet || IsVisiters || IsVaccines) {
+  if (IsVet || IsVisiters || IsVaccines || isAnimals || IsUsers) {
     return <p>Trying to Load...</p>;
   }
   
   const Vets = AllVets.list;
   const Visits = AllVisiters.list;
   const Vaccines = AllVaccines.list;
+  const Pets = AllAnimals.list;
+  const Users = AllUsers.list;
   
 
   const Doctor = Vets.find((vet) => {
@@ -39,28 +45,6 @@ function DoctorPage() {
     Visits.forEach((visit) => {
 
       if (visit.vet_id === Doctor.vet_id) {
-        count++;
-      }
-
-    });
-
-    return count;
-  }
-
-  function CountDoctorTodayVisits() {
-
-    let count = 0;
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    Visits.forEach((visit) => {
-
-      const visitDate = new Date(visit.visit_date);
-      visitDate.setHours(0, 0, 0, 0);
-
-      if (visit.vet_id === Doctor.vet_id &&
-        visitDate.getTime() === today.getTime()) {
         count++;
       }
 
@@ -115,6 +99,33 @@ function DoctorPage() {
   
     return count;
   }
+
+
+  const TodayVisits = () =>{
+
+    let ThedayVisits = [];
+  
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+  
+    Visits.forEach((visit) => {
+  
+      const visitDate = new Date(visit.visit_date);
+      visitDate.setHours(0, 0, 0, 0);
+  
+      if (
+        visit.vet_id === Doctor.vet_id &&
+        visitDate.getTime() === today.getTime()
+      ) {
+        ThedayVisits.push(visit);
+      }
+  
+    });
+  
+    return ThedayVisits;
+  }
+
+
 
   return (
     <div style={style.page}>
@@ -190,7 +201,7 @@ function DoctorPage() {
             <div style={style.overviewInfo}>
   
               <h2 style={style.overviewCount}>
-                {CountDoctorTodayVisits()}
+                {TodayVisits().length}
               </h2>
   
               <p style={style.overviewTitle}>
@@ -311,9 +322,91 @@ function DoctorPage() {
           <div style={style.appointmentsBox}>
   
             <div style={style.appointment}>
-  
+
+             <div style={style.appointmentHeader}>
+                <p>Pet</p>
+                <p>Owner</p>
+                <p>Appointment</p>
+             </div>
+
+            {TodayVisits().map((visit) => {
+
+              const ThePet = Pets.find((Pet) => {
+                return Pet.animal_id === visit.animal_id;
+              });
+
+              const PetOwner = Users.find((user) =>{
+                return user.user_id === ThePet.owner_id;
+              })
+
+              return (
+                <div key={visit.visit_id} style={style.todayVisit}>
+              
+                 
+                  <div style={style.todayPetInfo}>
+              
+                    <img
+                      src={`http://localhost:6127${ThePet.photo_url}`}
+                      alt={ThePet.name}
+                      style={style.todayPetImage}
+                    />
+              
+                    <div>
+                      <h3 style={style.todayPetName}>
+                        {ThePet.name}
+                      </h3>
+              
+                      <p style={style.todayPetDetails}>
+                        {ThePet.species}
+                        {ThePet.breed && ` • ${ThePet.breed}`}
+                      </p>
+                    </div>
+              
+                  </div>
+              
+              
+                 
+                  <div style={style.ownerInfo}>
+              
+                    <h3 style={style.ownerName}>
+                      {PetOwner.name}
+                    </h3>
+              
+                    <p style={style.ownerEmail}>
+                      {PetOwner.email}
+                    </p>
+              
+                  </div>
+              
+              
+              
+                  <div style={style.todayVisitDate}>
+              
+                    <h4 style={style.todayDate}>
+                      {new Date(visit.visit_date).toLocaleDateString(
+                         "en-US",
+                         {
+                           month: "short",
+                           day: "numeric",
+                           year: "numeric"
+                         }
+                      )}
+                    </h4>
+              
+                    <p style={style.todayText}>
+                      Today
+                    </p>
+              
+                  </div>
+              
+                </div>
+              );
+            })}
+
               <div style={style.emptyAppointments}>
-                Today's appointments will appear here
+                
+                
+
               </div>
   
             </div>
@@ -550,8 +643,8 @@ const style = {
     width: "100%",
     minHeight: "90px",
     display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: "column",
+    alignItems: "stretch",
     padding: "15px 25px",
     boxSizing: "border-box",
     borderBottom: "1px solid #eee"
@@ -681,6 +774,88 @@ const style = {
     color: "#D94B66",
     fontWeight: "bold",
     cursor: "pointer"
+  },
+
+  appointmentHeader: {
+    display: "grid",
+    gridTemplateColumns: "1.4fr 1fr 0.7fr",
+    alignItems: "center",
+    padding: "6px 25px",
+    borderBottom: "1px solid #eee",
+    color: "#777",
+    fontSize: "17px",
+    fontWeight: "bold"
+  },
+  
+  todayVisit: {
+    display: "grid",
+    gridTemplateColumns: "1.4fr 1fr 0.7fr",
+    alignItems: "center",
+    padding: "15px 35px",
+    borderBottom: "1px solid #eee",
+    boxSizing: "border-box",
+    minHeight: "100px"
+  },
+  
+  todayPetInfo: {
+    display: "flex",
+    alignItems: "center",
+    gap: "16px"
+  },
+  
+  todayPetImage: {
+    width: "65px",
+    height: "65px",
+    borderRadius: "50%",
+    objectFit: "cover"
+  },
+  
+  todayPetName: {
+    margin: "0 0 6px 0",
+    fontSize: "18px",
+    fontWeight: "bold"
+  },
+  
+  todayPetDetails: {
+    margin: 0,
+    fontSize: "14px",
+    color: "#777"
+  },
+  
+  ownerInfo: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "6px"
+  },
+  
+  ownerName: {
+    margin: 0,
+    fontSize: "17px",
+    fontWeight: "bold"
+  },
+  
+  ownerEmail: {
+    margin: 0,
+    color: "#777",
+    fontSize: "14px"
+  },
+  
+  todayVisitDate: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "6px"
+  },
+  
+  todayDate: {
+    margin: 0,
+    fontSize: "16px"
+  },
+  
+  todayText: {
+    margin: 0,
+    color: "#8B7CE8",
+    fontSize: "14px",
+    fontWeight: "bold"
   }
 
 };
