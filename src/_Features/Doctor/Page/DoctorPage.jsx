@@ -1,5 +1,5 @@
 import React from 'react'
-import protpet from "../../assets/propet.png";
+import protpet from "../../../assets/propet.png";
 import {
   useGetAllVet,
   useGetAllVisiters,
@@ -7,11 +7,13 @@ import {
   useGetAllAnimals,
   useGetAllUsers,
 
-} from "../API/apiHook"
+} from "../../API/apiHook"
+import { useNavigate } from "react-router-dom";
 
 function DoctorPage() {
 
   const user = JSON.parse(localStorage.getItem("user"));
+  const Navigate=useNavigate();
   
   const {data:  AllVets,  isLoading: IsVet} = useGetAllVet();
   const { data: AllVisiters, isLoading: IsVisiters } = useGetAllVisiters();
@@ -450,11 +452,15 @@ function DoctorPage() {
   
           <div style={style.quickActions}>
   
-            <button style={style.actionPurple}>
+            <button
+            onClick={()=>Navigate("/Doctor/Patients")} 
+            style={style.actionPurple}>
               🐾 View Patients
             </button>
   
-            <button style={style.actionGreen}>
+            <button
+              onClick={()=>Navigate("/Doctor/Visits")}  
+            style={style.actionGreen}>
               📅 View Visits
             </button>
   

@@ -11,9 +11,10 @@ import MyPets from "../_Features/UserPage/MyPets/MyPets"
 import Visit from "../_Features/UserPage/MyPets/Visits/Visit"
 import History from "../_Features/UserPage/MyPets/MedicalHistory/History"
 import DoctorLayout from "../LayOut/DoctorLayout"
-import DoctorPage from "../_Features/Doctor/DoctorPage";
-import DoctorVisits from "../_Features/Doctor/DoctorVisits";
-import DoctorPatients from "../_Features/Doctor/DoctorPatients";
+import DoctorPage from "../_Features/Doctor/Page/DoctorPage";
+import DoctorVisits from "../_Features/Doctor/Visits/DoctorVisits";
+import DoctorPatients from "../_Features/Doctor/Patients/DoctorPatients";
+import View from "../_Features/Doctor/Patients/View/View";
 
 const router = createBrowserRouter([
     {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
                 path:"Patients",
                 element:<DoctorPatients/>
 
+            },
+            {
+                path:"View/:animal_id",
+                element:<View/>
             }
             
             
