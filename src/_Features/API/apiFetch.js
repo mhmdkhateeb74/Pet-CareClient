@@ -283,6 +283,56 @@ async function GetAllUsers() {
 }
 
 
+
+async function UpdateVisit(formData)
+{
+    let url = `${backURL}/VI/Update/${formData.visit_id}`;
+
+    const strToSend = JSON.stringify(formData);
+
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: strToSend,
+        credentials: 'include'
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+}
+
+
+
+async function AddVaccine(formData)
+{
+    let url = `${backURL}/VA/Add`;
+
+    const strToSend = JSON.stringify(formData);
+
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: strToSend,
+        credentials: 'include'
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+}
+
+
 export{
     LoginUser,
     RegisterUserApi,
@@ -297,4 +347,6 @@ export{
     GetAllNotifications,
     AddNotification,
     GetAllUsers,
+    UpdateVisit,
+    AddVaccine,
 }

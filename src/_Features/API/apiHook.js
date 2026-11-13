@@ -11,7 +11,10 @@ import {LoginUser,
     AddVisit,
     GetAllNotifications,
     AddNotification,
-    GetAllUsers,} from "./apiFetch";
+    GetAllUsers,
+    UpdateVisit,
+    AddVaccine,
+    } from "./apiFetch";
 import { useNavigate } from "react-router-dom";
 
 function useLoginUser() {
@@ -262,6 +265,59 @@ function useGetAllUsers() {
 }
 
 
+function useUpdateVisit() {
+
+    const queryClient = useQueryClient();
+
+    const { mutate:updateVisit, isPending:IsUpdatingVisit } = useMutation(
+        {
+            mutationFn: UpdateVisit,
+
+            onError: async (err) => {
+                console.log("err", err);
+            },
+
+            onSuccess: (data) => {
+                console.log(data);
+
+                queryClient.invalidateQueries({
+                    queryKey: ["AllVisiters"]
+                });
+            },
+        }
+    );
+
+    return {updateVisit, IsUpdatingVisit};
+}
+
+
+function useAddVaccine() {
+
+    const queryClient = useQueryClient();
+
+    const { mutate:addVaccine, isPending:IsAddingVaccine } = useMutation(
+        {
+            mutationFn: AddVaccine,
+
+            onError: async (err) => {
+                console.log("err", err);
+            },
+
+            onSuccess: (data) => {
+                console.log(data);
+
+                queryClient.invalidateQueries({
+                    queryKey: ["AllVaccines"]
+                });
+            },
+        }
+    );
+
+    return {addVaccine, IsAddingVaccine};
+}
+
+
+
 export {useLoginUser,
     useRegisterUser,
     useRegisterPetApi,
@@ -275,4 +331,6 @@ export {useLoginUser,
     useGetAllNotifications,
     useAddNotification,
     useGetAllUsers,
+    useUpdateVisit,
+    useAddVaccine,
 };
