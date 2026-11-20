@@ -1,5 +1,12 @@
 import {backURL} from "../../var";
 
+function getAuthHeaders() {
+    const token = sessionStorage.getItem("token");
+
+    return token
+        ? { Authorization: `Bearer ${token}` }
+        : {};
+}
 
 async function LoginUser(formData) {
     let url=`${backURL}/US/Login`;
@@ -33,7 +40,7 @@ async function RegisterUserApi(formData)
         method: 'POST',
         headers: {
             'accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
         body: strToSend,
         credentials: 'include'
@@ -63,6 +70,9 @@ async function RegisterPetApi(formData)
 
     const response = await fetch(url, {
         method: "POST",
+        headers: {
+            ...getAuthHeaders()
+        },
         body: dataToSend,
         credentials: "include"
     });
@@ -82,6 +92,7 @@ async function GetAllVet() {
         method: 'GET',
         headers: {
             'accept': 'application/json',
+            ...getAuthHeaders()
         },
         credentials: 'include'
     });
@@ -96,13 +107,14 @@ async function GetAllVet() {
 async function DeletePet(id) 
 {
     let url=`${backURL}/AN/Delete`;
-    
+
     const strToSend = JSON.stringify({  animal_id: id});
     const response = await fetch(url, {
         method: 'DELETE',
         headers: {
             'accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            ...getAuthHeaders()
         },
         body: strToSend,
         credentials: 'include'
@@ -121,7 +133,7 @@ async function DeletePet(id)
 async function UpdatePet(formData) 
 {
     let url=`${backURL}/AN/Update`;
-    
+
     const dataToSend = new FormData();
     dataToSend.append("animal_id", formData.animal_id);
     dataToSend.append("name", formData.name);
@@ -133,6 +145,9 @@ async function UpdatePet(formData)
 
     const response = await fetch(url, {
         method: "PUT",
+        headers: {
+            ...getAuthHeaders()
+        },
         body: dataToSend,
         credentials: "include"
     });
@@ -153,6 +168,7 @@ async function GetAllAnimals() {
         method: 'GET',
         headers: {
             'accept': 'application/json',
+            ...getAuthHeaders()
         },
         credentials: 'include'
     });
@@ -172,6 +188,7 @@ async function GetAllVisiters() {
         method: 'GET',
         headers: {
             'accept': 'application/json',
+            ...getAuthHeaders()
         },
         credentials: 'include'
     });
@@ -190,6 +207,7 @@ async function GetAllVaccines() {
         method: 'GET',
         headers: {
             'accept': 'application/json',
+            ...getAuthHeaders()
         },
         credentials: 'include'
     });
@@ -210,7 +228,8 @@ async function AddVisit(formData)
         method: 'POST',
         headers: {
             'accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            ...getAuthHeaders()
         },
         body: strToSend,
         credentials: 'include'
@@ -230,6 +249,7 @@ async function GetAllNotifications() {
         method: 'GET',
         headers: {
             'accept': 'application/json',
+            ...getAuthHeaders()
         },
         credentials: 'include'
     });
@@ -250,7 +270,8 @@ async function AddNotification(data) {
         method: 'POST',
         headers: {
             'accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            ...getAuthHeaders()
         },
         credentials: 'include',
         body: JSON.stringify(data)
@@ -271,6 +292,7 @@ async function GetAllUsers() {
         method: 'GET',
         headers: {
             'accept': 'application/json',
+            ...getAuthHeaders()
         },
         credentials: 'include'
     });
@@ -294,7 +316,8 @@ async function UpdateVisit(formData)
         method: 'PUT',
         headers: {
             'accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            ...getAuthHeaders()
         },
         body: strToSend,
         credentials: 'include'
@@ -319,7 +342,8 @@ async function AddVaccine(formData)
         method: 'POST',
         headers: {
             'accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            ...getAuthHeaders()
         },
         body: strToSend,
         credentials: 'include'
