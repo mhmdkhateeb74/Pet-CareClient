@@ -464,14 +464,6 @@ function DoctorPage() {
               📅 View Visits
             </button>
   
-            <button style={style.actionOrange}>
-              💉 Add Vaccination
-            </button>
-  
-            <button style={style.actionRed}>
-              📋 View Reports
-            </button>
-  
           </div>
   
         </div>
