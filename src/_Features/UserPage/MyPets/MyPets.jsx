@@ -7,7 +7,7 @@ function MyPets() {
 
   const [showAddPet, setShowAddPet] = useState(false);
   const [showEditPet, setShowEditPet] = useState(false);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
   const {data:AllPets} =useGetAllAnimals();
   const Pets = AllPets?.list || [];

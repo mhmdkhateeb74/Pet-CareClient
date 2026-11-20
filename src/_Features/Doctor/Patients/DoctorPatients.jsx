@@ -9,7 +9,7 @@ import {
 
 function DoctorPatients() {
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
   const { data: AllVets, isLoading: IsVet } = useGetAllVet();
   const { data: AllVisiters, isLoading: IsVisiters } = useGetAllVisiters();

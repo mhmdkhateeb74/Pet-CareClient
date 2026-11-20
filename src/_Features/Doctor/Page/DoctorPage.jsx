@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 function DoctorPage() {
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(sessionStorage.getItem("user"));
   const Navigate=useNavigate();
   
   const {data:  AllVets,  isLoading: IsVet} = useGetAllVet();

@@ -9,7 +9,7 @@ import {
 
 function UserPage() {
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
   const { data: AnimalsData } = useGetAllAnimals();
   const { data: VisitersData } = useGetAllVisiters();
